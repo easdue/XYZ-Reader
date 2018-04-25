@@ -87,7 +87,7 @@ public class ArticleDetailFragment extends Fragment implements
 
     private void bindViews() {
         if (cursor != null) {
-            articleBody.setText(Html.fromHtml(cursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n\r\n|\n\n)", "<br/><br/>").replaceAll("(\r\n|\n)", " ")));
+            articleBody.setText(Html.fromHtml(cursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n\r\n|\n\n)", "<br/><br/>").replaceAll("(\r\n|\n)", " ").substring(0,2000)));
         } else {
             articleBody.setText("");
         }
