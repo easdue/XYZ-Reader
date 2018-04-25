@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -24,6 +26,9 @@ import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.data.UpdaterService;
 import com.example.xyzreader.util.DateUtil;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * An activity representing a list of Articles. This activity has different presentations for
  * handset and tablet-size devices. On handsets, the activity presents a list of items, which when
@@ -34,29 +39,30 @@ public class ArticleListActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = ArticleListActivity.class.toString();
-    private Toolbar mToolbar;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
 
-        mToolbar = findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
+
         mToolbar.setTitle("");
         mToolbar.setLogo(R.drawable.logo);
         setSupportActionBar(mToolbar);
 
-        mSwipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                updateRefreshingUI();
+                Snackbar.make(coordinatorLayout, R.string.fetching_new_ebooks, Snackbar.LENGTH_LONG).show();
+                refresh();
             }
         });
 
-        mRecyclerView = findViewById(R.id.recycler_view);
         getSupportLoaderManager().initLoader(0, null, this);
 
         if (savedInstanceState == null) {
