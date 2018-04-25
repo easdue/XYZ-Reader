@@ -18,11 +18,28 @@
 <resources>
 
     <style name="Theme.Bacon" parent="@style/Theme.AppCompat.Light.NoActionBar">
-
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="Theme.Bacon.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="Theme.Bacon.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="Theme.Bacon.Detail">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="Theme.Bacon.List">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Theme.Bacon.List.Title" parent="@style/Theme.Bacon.List">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Headline</item>
+    </style>
+
+    <style name="Theme.Bacon.List.SubTitle" parent="@style/Theme.Bacon.List">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
+    </style>
 </resources>
